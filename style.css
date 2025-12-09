@@ -1,0 +1,1683 @@
+:root {
+    --primary-color: #8B4513;
+    --secondary-color: #654321;
+    --accent-color: #A0522D;
+    --dusty-color: #F5F5F5;
+    --bg-color: #FFFFFF;
+    --black-color: #000000;
+    --text-color: #000000;
+    
+    --fancy-serif: 'Cormorant Garamond', serif;
+    --sans: 'Work Sans', sans-serif;
+    --tangerine-script: 'Tangerine', cursive;
+    --sacramento-script: 'Sacramento', cursive;
+    --bg-url: url('img/bg.jpeg');
+    --overlay: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+}
+
+/* --- LOADING SCREEN --- */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(101, 67, 33, 0.9);
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOut 1s ease-in-out 3s forwards;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-logo {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* --- BASE RESET & SCROLL LAYOUT --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+    font-family: var(--sans);
+}
+.container {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+/* --- SCROLL ANIMATION & KEYFRAMES --- */
+section {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.5s ease;
+    
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+/* PENYESUAIAN KHUSUS UNTUK GALERI, UCAPAN & GIFT agar muat di HP */
+#slide6, #slide8, #slide9 {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+/* END PENYESUAIAN SECTION */
+
+section.active .reveal-text,
+section.active .reveal-scale,
+section.active .reveal-box,
+.couple-card .flower-top-right,
+.couple-card .flower-bottom-left {
+    opacity: 1;
+    transform: none;
+}
+
+/* 3D Animations for slides */
+#slide1.active, #slide2.active, #slide3.active, #slide4.active, #slide5.active, #slide6.active, #slide7.active, #slide8.active, #slide9.active, #slide10.active {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(50px);
+    transition: transform 1s ease-out;
+}
+
+#slide1, #slide2, #slide3, #slide4, #slide5, #slide6, #slide7, #slide8, #slide9, #slide10 {
+    transform: perspective(1000px) rotateX(10deg) rotateY(10deg) translateZ(-50px);
+    transition: transform 1s ease-out;
+}
+.reveal-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal-box {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+/* Delay untuk animasi berurutan */
+.d-0 { transition-delay: 0s; }
+.d-1 { transition-delay: 0.1s; }
+.d-2 { transition-delay: 0.2s; }
+.d-3 { transition-delay: 0.3s; }
+.d-4 { transition-delay: 0.4s; }
+.d-5 { transition-delay: 0.5s; }
+.d-6 { transition-delay: 0.6s; }
+.d-7 { transition-delay: 0.7s; }
+
+
+
+
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3 {
+    line-height: 1;
+    z-index: 2;
+}
+.wedding-title {
+    font-family: var(--fancy-serif);
+    letter-spacing: 5px;
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: center;
+}
+#guest-name {
+    color: var(--secondary-color);
+    font-family: var(--fancy-serif);
+    font-size: 4rem;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.guest-name-dynamic {
+    color: var(--primary-color);
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+#slide9 p:last-of-type {
+    margin-top: 20px;
+}
+h1 {
+    font-family: var(--tangerine-script);
+    font-size: 4rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: none;
+    color: var(--primary-color);
+    text-align: center;
+    line-height: 1.5;
+}
+h2 {
+    font-family: var(--fancy-serif);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    text-align: center;
+}
+h3 { 
+    font-family: var(--sacramento-script);
+    font-weight: 600; 
+    font-size: 2rem; 
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+p {
+    font-family: var(--fancy-serif);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* --- COMPONENTS --- */
+
+.btn-buka {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+}
+.btn-buka:hover {
+    background: var(--secondary-color);
+}
+.to-text {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+/* 2. Slide 1 (Ayat & Gambar Dekoratif) */
+#slide1 {
+    background: url('img/3.jpeg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+}
+#slide1 h2 {
+    font-family: var(--fancy-serif);
+    font-size: 0.5rem;
+    color: var(--secondary-color); 
+}
+.couple-wrapper {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+}
+.bismillah-img {
+    max-width: 200px;
+    height: auto;
+    margin: 30px auto;
+    display: block;
+    color: var(--black-color);
+}
+.assalamualaikum-logo {
+    max-width: 200px;
+    height: auto;
+    margin: 30px auto;
+    display: block;
+    color: var(--black-color);
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.7);
+}
+#slide1 p {
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.3rem;
+    color: var(--secondary-color); 
+}
+
+/* 3. Slide 2 (Mempelai) */
+#slide2 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+}
+#slide2 h2 {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-family: var(--fancy-serif);
+}
+.couple-wrapper {
+    display: flex;
+    flex-direction: column; /* Mobile Default */
+    gap: 30px;
+    color: var(--secondary-color); 
+}
+.couple-card {
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    background: transparent;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    z-index: 1;
+    color: var(--secondary-color);
+}
+
+/* Efek Bunga di Couple Card */
+.couple-card::before,
+.couple-card::after,
+.couple-card .flower-top-right,
+.couple-card .flower-bottom-left {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: url('img/fl.png') no-repeat center center;
+    background-size: contain;
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.7);
+    z-index: 0;
+}
+.couple-card::before { /* Kiri - Pseudo 1 */
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%) rotate(0deg);
+}
+.couple-card::after { /* Kanan - Pseudo 2 */
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%) rotate(180deg);
+}
+.couple-card .flower-top-right { /* Kanan - HTML div */
+    top: 50%;
+    right: -35px;
+    transform: translateY(-50%) rotate(90deg);
+    opacity: 0;
+}
+.couple-card .flower-bottom-left { /* Kiri - HTML div */
+    top: 50%;
+    left: -35px;
+    transform: translateY(-50%) rotate(270deg);
+    opacity: 0;
+}
+
+.photo-frame {
+    position: relative;
+    width: 150px;
+    height: 200px;
+    margin: 0 auto 15px;
+    border-radius: 50% / 30%;
+    overflow: hidden;
+    border: 4px solid var(--primary-color);
+}
+
+/* Flower decorations around photo frame */
+.photo-frame::before,
+.photo-frame::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('img/fl.png') no-repeat center center;
+    background-size: contain;
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.8);
+    z-index: 2;
+}
+
+.photo-frame::before {
+    top: -10px;
+    left: -10px;
+    transform: rotate(0deg);
+}
+
+.photo-frame::after {
+    bottom: -10px;
+    right: -10px;
+    transform: rotate(180deg);
+}
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.couple-name {
+    color: var(--secondary-color);
+    font-family: var(--fancy-serif);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.social-links {
+    margin-top: 15px;
+}
+.instagram-btn {
+    display: inline-flex; 
+    align-items: center;
+    padding: 8px 15px;
+    background: var(--dusty-color); 
+    color: var(--secondary-color); 
+    text-decoration: none;
+    border-radius: 20px; 
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+    font-family: var(--sans);
+    letter-spacing: 0.5px;
+}
+.instagram-btn i {
+    margin-right: 8px; 
+    font-size: 1.1rem;
+    color: var(--primary-color); 
+}
+.instagram-btn:hover {
+    background: var(--primary-color); 
+    color: white;
+}
+.instagram-btn:hover i {
+    color: white; 
+}
+
+
+/* 4. Slide 3 (Event) */
+#slide3 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--secondary-color);
+    position: relative;
+}
+#slide3 h3, #slide3 p {
+    font-family: var(--fancy-serif);
+    color: var(--secondary-color);
+}
+#slide3 .couple-card p {
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 5px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+#slide3 h2 {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+}
+.glass-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--dusty-color);
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin: 15px 0;
+    color: var(--secondary-color); 
+}
+/* Efek Bunga di Glass Card */
+.glass-card::before, .glass-card::after {
+    content: '';
+    position: absolute;
+    width: 40px; 
+    height: 40px; 
+    background: url('img/fl.png') no-repeat center center;
+    background-size: contain;
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.7);
+    z-index: 10;
+}
+.glass-card::before {
+    top: -10px;
+    right: -10px;
+    transform: rotate(90deg);
+}
+.glass-card::after {
+    bottom: -10px;
+    left: -10px;
+    transform: rotate(270deg);
+}
+.border-inner {
+    border: 1px dashed var(--secondary-color); 
+    padding: 15px;
+    border-radius: 10px;
+}
+.glass-card h3 {
+    color: var(--primary-color); 
+}
+.glass-card p {
+    color: var(--secondary-color); 
+}
+
+/* 5. Slide 4 (Countdown) */
+#slide4 {
+    background: url('img/bg akad.jpeg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--secondary-color);
+}
+
+/* 6. Slide 5 (Countdown with Add to Calendar) */
+#slide5 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+}
+#slide5 h2 {
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+}
+
+#slide4 h2 {
+    color: var(--secondary-color);
+    text-align: left;
+    margin-left: 5vw;
+}
+#slide4 .couple-wrapper {
+    transform: translateX(5%); 
+}
+
+/* Gaya baru untuk countdown agar lebih menarik */
+.countdown-wrapper {
+    display: flex;
+    justify-content: center; 
+    gap: 15px; 
+    margin-top: 30px;
+    width: 100%; 
+}
+.time-box {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+    padding: 15px 10px;
+    border-radius: 50% / 30%;
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.curved-text {
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+}
+
+/* Flower decorations for time-box */
+.time-box::before,
+.time-box::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('img/fl.png') no-repeat center center;
+    background-size: contain;
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.8);
+    z-index: 1;
+    animation: flower-rotate 5s linear infinite;
+}
+
+.time-box::before {
+    top: -10px;
+    left: -10px;
+}
+
+.time-box::after {
+    bottom: -10px;
+    right: -10px;
+    animation-direction: reverse;
+}
+.time-box:hover {
+    transform: translateY(-5px); 
+}
+.time-box span {
+    font-family: var(--fancy-serif);
+    font-size: 2.5rem; 
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+.time-box small {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 6. Slide 5 (Galeri) */
+#slide5 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+}
+#slide5 h2 {
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    display: block;
+}
+/* 7. Slide 6 & 7 (RSVP & Ucapan) */
+#slide6, #slide7 {
+    background: var(--overlay), var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+}
+#slide6 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: none;
+}
+#slide7, #slide8, #slide9, #slide10 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+#slide6 h2, #slide6 p, #slide7 h2, #slide7 p {
+    color: var(--secondary-color);
+}
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--dusty-color);
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin: 15px 0;
+}
+.rsvp-form input, .rsvp-form select, .rsvp-form textarea, .rsvp-form button {
+    padding: 12px;
+    border: 1px solid var(--dusty-color);
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--secondary-color);
+    background: white;
+}
+.rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+.rsvp-form button.btn-buka {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.rsvp-form button.btn-buka:hover {
+    background: var(--secondary-color);
+}
+
+/* Chat Styles */
+.chat-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--dusty-color);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.chat-container h3 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-family: var(--fancy-serif);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.chat-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--dusty-color);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--dusty-color);
+    color: var(--secondary-color);
+}
+
+.chat-message strong {
+    color: var(--primary-color);
+}
+
+.chat-message small {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    opacity: 0.7;
+}
+
+
+/* 8. Slide Gift (Hadiah) */
+#slide8 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+}
+#slide8 h2 {
+    color: var(--secondary-color);
+    font-family: var(--fancy-serif);
+    font-size: 2rem;
+}
+#slide8 h3 {
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+#slide8 p {
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+.atm-card {
+    background: #fff;
+    border: 1px solid var(--dusty-color);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: left;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    color: var(--secondary-color); 
+}
+.atm-logo { 
+    width: 60px; height: auto; margin-right: 15px; filter: grayscale(100%); transition: 0.3s; 
+}
+.atm-card:hover .atm-logo { filter: grayscale(0%); }
+.btn-copy { 
+    margin-left: auto; 
+    border: none; 
+    background: var(--dusty-color); 
+    color: var(--secondary-color); 
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.btn-copy:hover {
+    background: var(--primary-color);
+    color: white;
+}
+.catatan {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+.account-name {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+/* 10. Slide 9 (Penutup) */
+#slide9 {
+    background: var(--bg-url) no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--bg-color);
+}
+#slide9 p {
+    color: var(--secondary-color);
+}
+#slide9 h1 {
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+#slide9 h2 {
+    font-family: var(--fancy-serif);
+    size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#slide9 h3 {
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* --- ANIMASI KUPU-KUPU BARU (DIBIARKAN SAMA) --- */
+@keyframes butterfly-flight {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15vw, -30vh) rotate(-10deg); }
+    50% { transform: translate(30vw, -60vh) rotate(5deg); }
+    75% { transform: translate(50vw, -20vh) rotate(-15deg); }
+    100% { transform: translate(70vw, -100vh) rotate(0deg); } 
+}
+@keyframes butterfly-flight-2 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-15vw, -35vh) rotate(10deg); }
+    50% { transform: translate(-40vw, -70vh) rotate(-5deg); }
+    75% { transform: translate(-20vw, -20vh) rotate(15deg); }
+    100% { transform: translate(-50vw, -100vh) rotate(0deg); } 
+}
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
+.butterfly-effect {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    background: url('img/kupu2.gif') no-repeat center center;
+    background-size: contain;
+    z-index: 9999;
+    pointer-events: none;
+    display: none;
+}
+#butterfly1 {
+    left: 20%; 
+    bottom: -100px;
+    animation: 
+        butterfly-flight 25s linear infinite 5s, 
+        fadeInOut 25s ease-in-out infinite 5s; 
+}
+#butterfly2 {
+    left: 70%; 
+    bottom: -50px;
+    animation: 
+        butterfly-flight-2 18s linear infinite 0s, 
+        fadeInOut 18s ease-in-out infinite 0s; 
+}
+#butterfly3 {
+    left: 5%; 
+    bottom: -200px;
+    width: 45px; 
+    height: 45px;
+    animation: 
+        butterfly-flight 22s linear infinite 3s, 
+        fadeInOut 22s ease-in-out infinite 3s; 
+}
+#butterfly4 {
+    left: 45%; 
+    bottom: -150px;
+    animation: 
+        butterfly-flight 15s linear infinite 1s, 
+        fadeInOut 15s ease-in-out infinite 1s; 
+}
+#butterfly5 {
+    left: 85%;
+    bottom: -250px;
+    width: 70px;
+    height: 70px;
+    animation:
+        butterfly-flight 30s linear infinite 8s,
+        fadeInOut 30s ease-in-out infinite 8s;
+}
+#butterfly6 {
+    left: 15%;
+    bottom: -300px;
+    width: 50px;
+    height: 50px;
+    animation:
+        butterfly-flight-2 20s linear infinite 10s,
+        fadeInOut 20s ease-in-out infinite 10s;
+}
+#butterfly7 {
+    left: 35%;
+    bottom: -150px;
+    width: 55px;
+    height: 55px;
+    animation:
+        butterfly-flight 25s linear infinite 12s,
+        fadeInOut 25s ease-in-out infinite 12s;
+}
+#butterfly8 {
+    left: 55%;
+    bottom: -200px;
+    width: 65px;
+    height: 65px;
+    animation:
+        butterfly-flight-2 28s linear infinite 14s,
+        fadeInOut 28s ease-in-out infinite 14s;
+}
+#butterfly9 {
+    left: 75%;
+    bottom: -180px;
+    width: 45px;
+    height: 45px;
+    animation:
+        butterfly-flight 22s linear infinite 16s,
+        fadeInOut 22s ease-in-out infinite 16s;
+}
+#butterfly10 {
+    left: 95%;
+    bottom: -220px;
+    width: 60px;
+    height: 60px;
+    animation:
+        butterfly-flight-2 26s linear infinite 18s,
+        fadeInOut 26s ease-in-out infinite 18s;
+}
+/* --- AKHIR ANIMASI KUPU-KUPU --- */
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--dusty-color);
+    border-radius: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.close-modal {
+    color: var(--secondary-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Floating Hearts Background Effects */
+.floating-heart {
+    position: fixed;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+}
+
+/* --- CLOUD EFFECTS --- */
+.clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 120px;
+    height: 60px;
+}
+
+.cloud::before {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 80px;
+    height: 40px;
+    top: -15px;
+    left: 15px;
+}
+
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 35px;
+    top: -10px;
+    right: 15px;
+}
+
+.c1 {
+    top: 15%;
+    animation: cloud-move-1 40s linear infinite;
+}
+
+.c2 {
+    top: 30%;
+    animation: cloud-move-2 50s linear infinite;
+    animation-delay: 10s;
+}
+
+.c3 {
+    top: 50%;
+    animation: cloud-move-3 35s linear infinite;
+    animation-delay: 20s;
+}
+
+@keyframes cloud-move-1 {
+    0% { transform: translateX(-200px); }
+    100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+@keyframes cloud-move-2 {
+    0% { transform: translateX(-200px); }
+    100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+@keyframes cloud-move-3 {
+    0% { transform: translateX(-200px); }
+    100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+
+/* --- MEDIA QUERIES (Responsiveness) --- */
+/* Mobile Styles */
+@media (max-width: 767px) {
+    section {
+        padding: 10px;
+        height: auto;
+        min-height: 100vh;
+    }
+    .couple-wrapper {
+        padding: 5px;
+        gap: 15px;
+        width: 95%;
+    }
+    .glass-card, .rsvp-form {
+        padding: 15px;
+        margin: 5px 0;
+        width: 95%;
+        max-width: none;
+    }
+    .time-box {
+        padding: 8px 3px;
+        width: 20%;
+        gap: 10px;
+    }
+    .time-box span {
+        font-size: 1.5rem;
+    }
+    .gallery-grid {
+        gap: 8px;
+        grid-template-columns: repeat(2, 1fr);
+        width: 95%;
+    }
+    .gallery-item {
+        height: 100px;
+    }
+    .gallery-item img {
+        height: 100px;
+    }
+    .atm-card {
+        padding: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+    .atm-logo {
+        width: 40px;
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+    .btn-copy {
+        margin-left: 0;
+        margin-top: 8px;
+        align-self: stretch;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    .bottom-nav {
+        padding: 6px 0;
+    }
+    .nav-item {
+        font-size: 0.6rem;
+    }
+    .nav-item i {
+        font-size: 0.9rem;
+    }
+    #guest-name {
+        font-size: 2.5rem;
+    }
+    .guest-name-dynamic {
+        font-size: 2rem;
+    }
+    h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    h2 {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+    .couple-name {
+        font-size: 1.2rem;
+    }
+    .photo-frame {
+        width: 100px;
+        height: 130px;
+    }
+    .bismillah-img, .assalamualaikum-logo {
+        max-width: 120px;
+    }
+    .barcode-img {
+        max-width: 80px;
+    }
+    .instagram-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+    .instagram-btn i {
+        margin-right: 5px;
+        font-size: 0.9rem;
+    }
+    .btn-buka {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+    .to-text {
+        margin-top: 15px;
+        font-size: 0.7rem;
+    }
+    p {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+    }
+    .event-details, .address-section {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+    .countdown-wrapper {
+        gap: 8px;
+        margin-top: 15px;
+    }
+    .modal-content {
+        margin: 20% auto;
+        padding: 15px;
+        width: 90%;
+    }
+    .music-control {
+        bottom: 80px;
+        right: 15px;
+    }
+    .record-logo {
+        width: 45px;
+        height: 45px;
+    }
+    .record-logo i {
+        font-size: 18px;
+    }
+    .butterfly-effect {
+        width: 40px;
+        height: 40px;
+    }
+    /* Slide 4 specific adjustments for mobile */
+    #slide4 .couple-wrapper {
+        gap: 10px;
+    }
+    #slide4 .event-details {
+        margin-bottom: 10px;
+        padding: 8px;
+    }
+    #slide4 .address-section {
+        margin-top: 10px;
+        padding: 8px;
+    }
+    #slide4 .barcode-img {
+        margin: 10px auto;
+    }
+    #slide4 h2 {
+        margin-bottom: 15px;
+    }
+    /* Slide 3 specific adjustments for mobile */
+    #slide3 .couple-wrapper {
+        gap: 5px;
+    }
+    #slide3 .couple-card {
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+    #slide3 .couple-card:nth-child(1) .photo-frame {
+        margin: 0 0 15px 0;
+    }
+    #slide3 .couple-card:nth-child(2) .photo-frame {
+        margin: 0 0 15px auto;
+    }
+    #slide3 .couple-name {
+        margin-bottom: 2px;
+    }
+    #slide3 .social-links {
+        margin-top: 5px;
+    }
+    #slide3 .assalamualaikum-logo {
+        margin: 10px auto;
+    }
+    #slide3 p {
+        margin-bottom: 3px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Tablet Styling */
+    h1 {
+        font-size: 4rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.8rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+    #guest-name {
+        font-size: 3.5rem;
+    }
+    .guest-name-dynamic {
+        font-size: 3rem;
+    }
+    .couple-name {
+        font-size: 1.8rem;
+    }
+    .photo-frame {
+        width: 140px;
+        height: 180px;
+    }
+    .bismillah-img, .assalamualaikum-logo {
+        max-width: 180px;
+    }
+    .barcode-img {
+        max-width: 120px;
+    }
+    .instagram-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .instagram-btn i {
+        margin-right: 8px;
+        font-size: 1.1rem;
+    }
+    .btn-buka {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    .to-text {
+        margin-top: 25px;
+        font-size: 0.9rem;
+    }
+    .time-box span {
+        font-size: 2rem;
+    }
+    .gallery-item {
+        height: 180px;
+    }
+    .gallery-item img {
+        height: 180px;
+    }
+    .atm-logo {
+        width: 55px;
+    }
+    .btn-copy {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .record-logo {
+        width: 55px;
+        height: 55px;
+    }
+    .record-logo i {
+        font-size: 22px;
+    }
+    .butterfly-effect {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* Layout Couple Wrapper Side-by-Side */
+    .couple-wrapper {
+        flex-direction: row;
+        gap: 30px;
+        width: 85%;
+        max-width: 900px;
+    }
+    .couple-card {
+        max-width: 320px;
+    }
+    .glass-card {
+        width: 50%;
+        max-width: none;
+    }
+
+    .gallery-grid {
+        width: 95%;
+        max-width: 700px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Desktop Styling */
+    h1 {
+        font-size: 5rem;
+        text-align: center;
+    }
+    h2 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    h3 {
+        font-size: 2rem;
+    }
+    p {
+        font-size: 1.1rem;
+    }
+    #guest-name {
+        font-size: 4rem;
+    }
+    .guest-name-dynamic {
+        font-size: 3.5rem;
+    }
+    .couple-name {
+        font-size: 2rem;
+    }
+    .photo-frame {
+        width: 160px;
+        height: 210px;
+    }
+    .bismillah-img, .assalamualaikum-logo {
+        max-width: 200px;
+    }
+    .barcode-img {
+        max-width: 140px;
+    }
+    .instagram-btn {
+        padding: 10px 18px;
+        font-size: 1rem;
+    }
+    .instagram-btn i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+    .btn-buka {
+        padding: 12px 24px;
+        font-size: 1.1rem;
+    }
+    .to-text {
+        margin-top: 30px;
+        font-size: 1rem;
+    }
+    .time-box span {
+        font-size: 2.5rem;
+    }
+    .gallery-item {
+        height: 220px;
+    }
+    .gallery-item img {
+        height: 220px;
+    }
+    .atm-logo {
+        width: 60px;
+    }
+    .btn-copy {
+        padding: 10px 18px;
+        font-size: 1rem;
+    }
+    .record-logo {
+        width: 60px;
+        height: 60px;
+    }
+    .record-logo i {
+        font-size: 24px;
+    }
+    .butterfly-effect {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Layout Couple Wrapper Stacked */
+    .couple-wrapper {
+        flex-direction: column;
+        gap: 30px;
+        width: 80%;
+        max-width: 600px;
+    }
+    .couple-card {
+        max-width: 350px;
+    }
+    .glass-card {
+        width: 45%;
+        max-width: none;
+    }
+
+    .gallery-grid {
+        width: 90%;
+        max-width: 800px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* --- BOTTOM NAVIGATION --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--dusty-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+    font-family: var(--sans);
+    transition: color 0.3s ease;
+    min-width: 0;
+    flex: 1;
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+    color: var(--primary-color);
+}
+
+.nav-item:hover,
+.nav-item:active {
+    color: var(--primary-color);
+}
+
+.nav-item:hover i,
+.nav-item:active i {
+    color: var(--secondary-color);
+}
+
+/* --- MUSIC CONTROL --- */
+.music-control {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.record-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #000 0%, #333 50%, #000 100%);
+    border: 2px solid #666;
+    position: relative;
+    animation: spin 3s linear infinite;
+    animation-play-state: paused;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.record-logo i {
+    color: var(--primary-color);
+    font-size: 24px;
+    z-index: 2;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.record-logo:hover i {
+    color: var(--secondary-color);
+}
+
+.record-logo:hover {
+    transform: scale(1.1);
+}
+
+.record-logo i {
+    color: var(--primary-color);
+    font-size: 24px;
+    z-index: 2;
+    position: relative;
+}
+
+.record-logo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.record-logo.spinning {
+    animation-play-state: running;
+}
+
+.barcode-img {
+    max-width: 120px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+}
+
+.event-details {
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: transparent;
+    position: relative;
+}
+
+.event-details::before,
+.event-details::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('img/fl.png') no-repeat center center;
+    background-size: contain;
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.8);
+    z-index: 1;
+    animation: flower-rotate 5s linear infinite;
+}
+
+.event-details::before {
+    top: -10px;
+    left: -10px;
+}
+
+.event-details::after {
+    bottom: -10px;
+    right: -10px;
+    animation-direction: reverse;
+}
+
+.event-details p {
+    font-weight: bold;
+}
+
+#slide4 h3 {
+    font-family: var(--fancy-serif);
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes flower-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.address-section {
+    margin-top: 20px;
+    text-align: center;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    background: transparent;
+    position: relative;
+}
+
+.address-section::before,
+.address-section::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('img/fl.png') no-repeat center center;
+    background-size: contain;
+    filter: sepia(30%) hue-rotate(330deg) opacity(0.8);
+    z-index: 1;
+    animation: flower-rotate 5s linear infinite;
+}
+
+.address-section::before {
+    top: -10px;
+    left: -10px;
+}
+
+.address-section::after {
+    bottom: -10px;
+    right: -10px;
+    animation-direction: reverse;
+}
+
+.address-section h3 {
+    font-weight: bold;
+}
