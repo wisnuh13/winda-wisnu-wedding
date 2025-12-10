@@ -279,19 +279,23 @@ p {
 .couple-wrapper {
     display: flex;
     flex-direction: column; /* Mobile Default */
-    gap: 30px;
+    gap: 15px;
     color: var(--secondary-color); 
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
 }
 .couple-card {
     position: relative;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
     background: transparent;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     z-index: 1;
     color: var(--secondary-color);
+    margin: 0 auto;
 }
 
 /* Efek Bunga di Couple Card */
@@ -333,9 +337,9 @@ p {
 
 .photo-frame {
     position: relative;
-    width: 150px;
-    height: 200px;
-    margin: 0 auto 15px;
+    width: 140px;
+    height: 180px;
+    margin: 0 auto 12px;
     border-radius: 50% / 30%;
     overflow: hidden;
     border: 4px solid var(--primary-color);
@@ -1724,6 +1728,203 @@ p {
     animation-direction: reverse;
 }
 
+/* --- TEXT SECTION (SLIDE 3) --- */
+.text-section {
+    padding: 15px 10px;
+    margin-bottom: 10px;
+}
+
+.text-section h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.text-section p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    section {
+        padding: 15px;
+    }
+
+    #slide1, #slide2, #slide3, #slide4, #slide5, #slide6, #slide7, #slide8, #slide9, #slide10 {
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateZ(-50px);
+    }
+
+    .couple-wrapper {
+        gap: 12px;
+        max-width: 100%;
+        padding: 8px;
+    }
+
+    .couple-card {
+        padding: 12px;
+        max-width: 100%;
+    }
+
+    .photo-frame {
+        width: 130px;
+        height: 170px;
+        margin: 0 auto 10px;
+    }
+
+    .couple-name {
+        font-size: 1.6rem;
+        margin-bottom: 3px;
+    }
+
+    .couple-card p {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+
+    .social-links {
+        margin-top: 10px;
+    }
+
+    .instagram-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .text-section {
+        padding: 10px 8px;
+        margin-bottom: 8px;
+    }
+
+    .text-section h2 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .text-section p {
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    #guest-name {
+        font-size: 3rem;
+    }
+
+    .wedding-title {
+        font-size: 1.2rem;
+        letter-spacing: 3px;
+    }
+
+    .to-text {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 10px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .couple-wrapper {
+        gap: 10px;
+        padding: 5px;
+    }
+
+    .couple-card {
+        padding: 10px;
+        max-width: 95%;
+    }
+
+    .photo-frame {
+        width: 120px;
+        height: 160px;
+        margin: 0 auto 8px;
+        border: 3px solid var(--primary-color);
+    }
+
+    .photo-frame::before,
+    .photo-frame::after {
+        width: 25px;
+        height: 25px;
+    }
+
+    .couple-name {
+        font-size: 1.4rem;
+        margin-bottom: 2px;
+    }
+
+    .couple-card p {
+        font-size: 0.8rem;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+
+    .instagram-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .instagram-btn i {
+        margin-right: 5px;
+        font-size: 0.9rem;
+    }
+
+    .text-section {
+        padding: 8px 5px;
+        margin-bottom: 5px;
+    }
+
+    .text-section h2 {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        line-height: 1.3;
+    }
+
+    .text-section p {
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    #guest-name {
+        font-size: 2.5rem;
+    }
+
+    .wedding-title {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    .to-text {
+        font-size: 0.75rem;
+        margin-top: 15px;
+    }
+
+    .btn-buka {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+        margin-top: 8px;
+    }
+}
 .address-section h3 {
     font-weight: bold;
 }
