@@ -18,21 +18,27 @@
 /* --- LOADING SCREEN --- */
 #loading-screen {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0; /* shorthand for top/right/bottom/left = 0 */
     width: 100%;
-    height: 100%;
+    min-height: 100dvh; /* better handling for mobile browser chrome */
     background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    animation: fadeOut 1s ease-in-out 3s forwards;
+    transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 
 .loading-content {
     text-align: center;
     color: white;
+}
+
+/* When loading is finished, add this class to fade out and disable pointer events */
+.loading-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .loading-logo {
@@ -55,7 +61,7 @@ body {
     font-family: var(--sans);
 }
 .container {
-    height: 100vh;
+    min-height: 100dvh; /* prefer dynamic viewport height on mobile */
     width: 100vw;
     overflow-y: hidden;
     scroll-snap-type: y mandatory;
@@ -64,7 +70,7 @@ body {
 
 /* --- SCROLL ANIMATION & KEYFRAMES --- */
 section {
-    height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     scroll-snap-align: start;
     position: relative;
@@ -82,7 +88,7 @@ section {
 /* PENYESUAIAN KHUSUS UNTUK GALERI, UCAPAN & GIFT agar muat di HP */
 #slide6, #slide8, #slide9 {
     height: auto;
-    min-height: 100vh;
+    min-height: 100dvh;
     padding-top: 80px;
     padding-bottom: 80px;
 }
@@ -864,14 +870,14 @@ p {
     25% { transform: translate(15vw, -30vh) rotate(-10deg); }
     50% { transform: translate(30vw, -60vh) rotate(5deg); }
     75% { transform: translate(50vw, -20vh) rotate(-15deg); }
-    100% { transform: translate(70vw, -100vh) rotate(0deg); } 
+    100% { transform: translate(70vw, -100dvh) rotate(0deg); } 
 }
 @keyframes butterfly-flight-2 {
     0% { transform: translate(0, 0) rotate(0deg); }
     25% { transform: translate(-15vw, -35vh) rotate(10deg); }
     50% { transform: translate(-40vw, -70vh) rotate(-5deg); }
     75% { transform: translate(-20vw, -20vh) rotate(15deg); }
-    100% { transform: translate(-50vw, -100vh) rotate(0deg); } 
+    100% { transform: translate(-50vw, -100dvh) rotate(0deg); } 
 }
 @keyframes fadeInOut {
     0%, 100% { opacity: 0; }
@@ -1106,7 +1112,7 @@ p {
     section {
         padding: 10px;
         height: auto;
-        min-height: 100vh;
+        min-height: 100dvh;
     }
     .couple-wrapper {
         padding: 5px;
@@ -1832,7 +1838,7 @@ p {
     section {
         padding: 10px;
         height: auto;
-        min-height: 100vh;
+        min-height: 100dvh;
     }
 
     .couple-wrapper {

@@ -16,6 +16,7 @@ const SPREADSHEET_ID = "1-O3eIRZJDVJ5Vv4Y2dfUIMJ6llzCOyXiVBCXu8SCN5o"; // Ganti 
 const DEPLOYMENT_ID = "AKfycbzQYPTV30ah6pur4xyErdegET7GKVcTzhWLW2_O2MmP0Y08BEOnELqbrWL2sq0kFgxnQw"; // Deployment ID Apps Script
 const RSVP_SHEET_NAME = "RSVP";
 const GREETING_SHEET_NAME = "Ucapan";
+const GUEST_SHEET_NAME = "Tamu";
 
 // ============================================================================
 // FUNGSI UTAMA - doGet untuk handle GET request
@@ -24,10 +25,16 @@ function doGet(e) {
   try {
     const action = e.parameter.action;
     const formType = e.parameter.formType;
+    const guestName = e.parameter.nama;
 
     // Handle GET request untuk fetch ucapan
     if (action === 'getGreetings') {
       return getGreetings();
+    }
+
+    // Handle guest visit recording (when ?nama=X is provided)
+    if (guestName && !formType && !action) {
+      return recordGuestVisit(guestName);
     }
 
     // Handle POST data (RSVP dan Ucapan)
@@ -134,6 +141,46 @@ function saveGreeting(params) {
 }
 
 // ============================================================================
+// FUNGSI CATAT KUNJUNGAN TAMU
+// ============================================================================
+function recordGuestVisit(guestName) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(GUEST_SHEET_NAME);
+
+    if (!sheet) {
+      throw new Error('Sheet "' + GUEST_SHEET_NAME + '" tidak ditemukan');
+    }
+
+    const timestamp = new Date();
+    const timeFormatted = Utilities.formatDate(timestamp, Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm:ss');
+
+    // Tambahkan row baru
+    sheet.appendRow([
+      timeFormatted,
+      guestName
+    ]);
+
+    Logger.log('Guest visit recorded: ' + guestName);
+
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: 'success', 
+      message: 'Nama tamu berhasil tercatat',
+      nama: guestName
+    }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    Logger.log('Error in recordGuestVisit: ' + error.toString());
+    return ContentService.createTextOutput(JSON.stringify({ 
+      status: 'error', 
+      message: error.toString() 
+    }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// ============================================================================
 // FUNGSI AMBIL UCAPAN (untuk Live Chat)
 // ============================================================================
 function getGreetings() {
@@ -196,6 +243,13 @@ function setupSheets() {
     if (!greetingSheet) {
       greetingSheet = ss.insertSheet(GREETING_SHEET_NAME);
       greetingSheet.appendRow(['Waktu', 'Nama', 'Ucapan']);
+    }
+
+    // Setup Guest Sheet
+    let guestSheet = ss.getSheetByName(GUEST_SHEET_NAME);
+    if (!guestSheet) {
+      guestSheet = ss.insertSheet(GUEST_SHEET_NAME);
+      guestSheet.appendRow(['Waktu', 'Nama Tamu']);
     }
 
     Logger.log('Setup selesai!');

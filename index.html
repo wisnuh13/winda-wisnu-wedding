@@ -286,6 +286,7 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <img id="modal-image" src="" alt="">
+            <p id="modal-caption" style="margin-top:8px; color:var(--secondary-color);"></p>
         </div>
     </div>
 
@@ -352,7 +353,7 @@
 
         // 1. TAMPILKAN NAMA TAMU DARI URL DAN UBAH WARNA
         const params = new URLSearchParams(window.location.search);
-        const guestName = params.get('to'); 
+        const guestName = params.get('nama') || params.get('to'); // Support both ?nama= and ?to=
         const guestNameContainer = document.getElementById('guest-name');
         const rsvpNameInput = document.getElementById('rsvp-name');
 
@@ -372,18 +373,31 @@
             modalGuestName.innerText = cleanName;
             modal.style.display = 'block';
 
-            // Close modal on click
+            // Close modal on click (close button only here)
             const closeBtn = document.querySelector('.close-modal');
             closeBtn.onclick = function() {
                 modal.style.display = 'none';
             };
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                }
-            };
+
+            // Record guest visit to Google Sheet
+            recordGuestVisit(cleanName);
         } else {
             guestNameContainer.innerText = "Tamu Undangan";
+        }
+
+        // FUNGSI: Catat kunjungan tamu ke Google Sheet
+        function recordGuestVisit(guestName) {
+            const url = scriptURL + '?nama=' + encodeURIComponent(guestName);
+            fetch(url, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                Logger.log('Guest visit recorded:', data);
+            })
+            .catch(error => {
+                console.error('Error recording guest visit:', error);
+            });
         }
 
         // 2. ANIMASI SCROLL
@@ -536,7 +550,7 @@
             });
         });
 
-        // Close modal
+        // Close modal: buttons
         const closeBtns = document.querySelectorAll('.close-modal');
         closeBtns.forEach(btn => {
             btn.onclick = function() {
@@ -545,11 +559,13 @@
             };
         });
 
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
+        // Global click handler to close modal when clicking on modal overlay
+        document.addEventListener('click', function(event) {
+            // If clicked element is the modal overlay itself (not modal-content), close it
+            if (event.target && event.target.classList && event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }
-        };
+        });
 
         // 8. MUSIC CONTROL FUNCTIONALITY
         const recordLogo = document.getElementById('record-logo');
@@ -606,16 +622,29 @@
         setInterval(fetchMessages, 10000);
 
         // LOADING SCREEN HANDLER
+        // Use a class toggle so mobile browsers don't suffer layout jumps caused
+        // by immediate display:none or fixed 100vh calculations.
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.style.display = 'none';
+            const loadingScreen = document.getElementById('loading-screen');
+
+            // Give a small minimum time for the loader to be visible (optional)
+            const minVisibleMs = 800; // reduce from 3000 to avoid long waits on mobile
+
+            // When load fires, add the hidden class to animate fade out,
+            // then remove the element from flow after the transition ends.
+            setTimeout(() => {
+                loadingScreen.classList.add('loading-hidden');
+
+                // after transition, fully remove from layout to avoid any capture of clicks
+                setTimeout(() => {
+                    try { loadingScreen.style.display = 'none'; } catch(e) {}
+                }, 500);
 
                 // Show butterflies after loading screen finishes
                 document.querySelectorAll('.butterfly-effect').forEach(butterfly => {
                     butterfly.style.display = 'block';
                 });
-            }, 3000); // 3 seconds
+            }, minVisibleMs);
         });
 
     </script>
