@@ -1271,14 +1271,23 @@ p {
     #slide3 .couple-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
     }
     #slide3 .text-section {
         order: -1;
+        width: 100%;
     }
     #slide3 .couple-card {
+        flex: 1;
+        min-width: 45%;
         padding: 10px;
-        margin-bottom: 5px;
+        margin-bottom: 0;
+    }
+    #slide3 .couple-card:nth-child(2) {
+        margin-right: 5px;
+    }
+    #slide3 .couple-card:nth-child(3) {
+        margin-left: 5px;
     }
     #slide3 .couple-card:nth-child(2) .photo-frame {
         margin: 0 auto 15px;
@@ -1495,14 +1504,22 @@ p {
 
     /* Slide 3 desktop layout - keep grid */
     #slide3 .couple-wrapper {
-        display: grid;
-        grid-template-areas:
-            "text text"
-            "left right";
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto 1fr;
-        gap: 20px;
-        align-items: start;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    #slide3 .text-section {
+        width: 100%;
+        order: -1;
+    }
+    #slide3 .couple-card {
+        flex: 1;
+        min-width: 40%;
+        max-width: calc(50% - 5px);
+        padding: 8px;
     }
     #slide3 .text-section {
         grid-area: text;
