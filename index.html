@@ -15,16 +15,11 @@
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <img src="img/screen.gif" alt="Loading" class="loading-gif">
-        </div>
-    </div>
+    <!-- Loading screen removed -->
 
     <!-- Background Music -->
     <audio id="background-music" loop>
-        <source src="music/Sal Priadi - Semua lagu cinta (Official Music Video).mp3" type="audio/mpeg">
+        <source src="music/I Love You Anyway.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -351,6 +346,47 @@
         // Contoh URL: https://script.google.com/macros/s/AKfycbx...xyz/usercontent
         const scriptURL = 'https://script.google.com/macros/s/AKfycbztqyC86UQGM4gQWvFnOK2A2e9joxD-ZZ2F19fd-OTmHv4Ivu9Js4QGXgfbNmrKdPfGfA/exec'; // GANTI INI DENGAN URL APPS SCRIPT ANDA
 
+        // KUNCI NAVIGASI: mencegah pindah slide sampai undangan dibuka
+        let isOpened = false;
+        const scrollContainerEl = document.getElementById('scrollContainer');
+
+        // Cegah navigasi anchor ke slide lain (mis. menu bawah) saat terkunci
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a[href^="#slide"]');
+            if (link) {
+                const href = link.getAttribute('href');
+                if (href && href !== '#slide1' && !isOpened) {
+                    e.preventDefault();
+                    // berikan umpan balik visual dengan membuat tombol buka bergetar singkat
+                    const openBtn = document.querySelector('.btn-buka');
+                    if (openBtn) {
+                        openBtn.classList.add('btn-shake');
+                        setTimeout(() => openBtn.classList.remove('btn-shake'), 700);
+                    }
+                }
+            }
+        });
+
+        // Blokir wheel / touchmove dan tombol navigasi umum saat terkunci
+        window.addEventListener('wheel', function(e) {
+            if (!isOpened) e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchmove', function(e) {
+            if (!isOpened) e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('keydown', function(e) {
+            if (isOpened) return;
+            const active = document.activeElement;
+            const tag = active && active.tagName ? active.tagName.toLowerCase() : '';
+            if (tag === 'input' || tag === 'textarea' || active.isContentEditable) return;
+            const blocked = ['arrowup','arrowdown','pageup','pagedown','home','end',' '];
+            if (blocked.includes(e.key.toLowerCase())) {
+                e.preventDefault();
+            }
+        });
+
         // 1. TAMPILKAN NAMA TAMU DARI URL DAN UBAH WARNA
         const params = new URLSearchParams(window.location.search);
         const guestName = params.get('nama') || params.get('to'); // Support both ?nama= and ?to=
@@ -421,6 +457,8 @@
         document.querySelector('.btn-buka').addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('slide1').style.display = 'none';
+            // Buka kunci navigasi dan aktifkan scroll
+            isOpened = true;
             document.getElementById('scrollContainer').style.overflowY = 'scroll';
             document.getElementById('slide2').scrollIntoView({ behavior: 'smooth' });
 
@@ -621,31 +659,7 @@
         fetchMessages();
         setInterval(fetchMessages, 10000);
 
-        // LOADING SCREEN HANDLER
-        // Use a class toggle so mobile browsers don't suffer layout jumps caused
-        // by immediate display:none or fixed 100vh calculations.
-        window.addEventListener('load', function() {
-            const loadingScreen = document.getElementById('loading-screen');
-
-            // Give a small minimum time for the loader to be visible (optional)
-            const minVisibleMs = 800; // reduce from 3000 to avoid long waits on mobile
-
-            // When load fires, add the hidden class to animate fade out,
-            // then remove the element from flow after the transition ends.
-            setTimeout(() => {
-                loadingScreen.classList.add('loading-hidden');
-
-                // after transition, fully remove from layout to avoid any capture of clicks
-                setTimeout(() => {
-                    try { loadingScreen.style.display = 'none'; } catch(e) {}
-                }, 500);
-
-                // Show butterflies after loading screen finishes
-                document.querySelectorAll('.butterfly-effect').forEach(butterfly => {
-                    butterfly.style.display = 'block';
-                });
-            }, minVisibleMs);
-        });
+        // Overlay loading dihapus: kupu-kupu akan ditampilkan lewat CSS
 
     </script>
 </body>

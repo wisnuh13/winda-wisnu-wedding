@@ -15,43 +15,7 @@
     --overlay: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
 }
 
-/* --- LOADING SCREEN --- */
-#loading-screen {
-    position: fixed;
-    inset: 0; /* shorthand for top/right/bottom/left = 0 */
-    width: 100%;
-    min-height: 100dvh; /* better handling for mobile browser chrome */
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.45s ease, visibility 0.45s ease;
-}
-
-.loading-content {
-    text-align: center;
-    color: white;
-}
-
-/* When loading is finished, add this class to fade out and disable pointer events */
-.loading-hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.loading-logo {
-    max-width: 200px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; visibility: hidden; }
-}
+/* Overlay loading dihapus - gaya dihapus dengan sengaja */
 
 /* --- BASE RESET & SCROLL LAYOUT --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -224,6 +188,15 @@ p {
 .btn-buka:hover {
     background: var(--secondary-color);
 }
+.btn-shake { animation: shake 0.7s ease; }
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
 .to-text {
     margin-top: 30px;
     font-size: 0.9rem;
@@ -295,13 +268,17 @@ p {
     position: relative;
     padding: 15px;
     border-radius: 10px;
-    width: 100%;
-    max-width: 280px;
+    width: auto;
+    max-width: none;
     background: transparent;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     z-index: 1;
     color: var(--secondary-color);
     margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
 }
 
 /* Efek Bunga di Couple Card */
@@ -343,12 +320,13 @@ p {
 
 .photo-frame {
     position: relative;
-    width: 140px;
-    height: 180px;
-    margin: 0 auto 12px;
+    width: 100px;
+    height: 130px;
+    margin: 0 12px 0 0;
     border-radius: 50% / 30%;
     overflow: hidden;
     border: 4px solid var(--primary-color);
+    flex-shrink: 0;
 }
 
 /* Flower decorations around photo frame */
@@ -384,30 +362,31 @@ p {
 .couple-name {
     color: var(--secondary-color);
     font-family: var(--fancy-serif);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
+    text-align: left;
 }
 .social-links {
-    margin-top: 15px;
+    margin-top: 8px;
 }
 .instagram-btn {
     display: inline-flex; 
     align-items: center;
-    padding: 8px 15px;
+    padding: 4px 8px;
     background: var(--dusty-color); 
     color: var(--secondary-color); 
     text-decoration: none;
-    border-radius: 20px; 
-    font-size: 0.9rem;
+    border-radius: 15px; 
+    font-size: 0.75rem;
     font-weight: 600;
     transition: background 0.3s, color 0.3s;
     font-family: var(--sans);
     letter-spacing: 0.5px;
 }
 .instagram-btn i {
-    margin-right: 8px; 
-    font-size: 1.1rem;
+    margin-right: 4px; 
+    font-size: 0.85rem;
     color: var(--primary-color); 
 }
 .instagram-btn:hover {
@@ -431,9 +410,10 @@ p {
     display: grid;
     grid-template-areas:
         "text text"
-        "left right";
+        ". card1"
+        "card2 .";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto auto;
     gap: 20px;
     align-items: start;
 }
@@ -442,14 +422,17 @@ p {
     text-align: center;
 }
 #slide3 .couple-card:nth-child(2) {
-    grid-area: left;
+    grid-area: card2;
 }
 #slide3 .couple-card:nth-child(3) {
-    grid-area: right;
+    grid-area: card1;
 }
 #slide3 h3, #slide3 p {
     font-family: var(--fancy-serif);
     color: var(--secondary-color);
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.2;
 }
 #slide3 .couple-card p {
     border: 2px solid var(--primary-color);
@@ -850,7 +833,7 @@ p {
 }
 #slide9 h2 {
     font-family: var(--fancy-serif);
-    size: 1.5rem;
+    font-size: 1.5rem;
     color: var(--primary-color);
     font-weight: 600;
     margin-bottom: 20px;
@@ -891,7 +874,7 @@ p {
     background-size: contain;
     z-index: 9999;
     pointer-events: none;
-    display: none;
+    display: block; /* make butterflies visible since loading overlay removed */
 }
 #butterfly1 {
     left: 20%; 
@@ -1249,6 +1232,31 @@ p {
         width: 40px;
         height: 40px;
     }
+    /* Slide-specific mobile overrides for text consistency */
+    #slide1 h2 {
+        font-size: 0.8rem;
+    }
+    #slide4 h2 {
+        font-size: 0.9rem;
+    }
+    #slide5 h2 {
+        font-size: 1.5rem;
+    }
+    #slide8 h2 {
+        font-size: 1.2rem;
+    }
+    #slide9 h1 {
+        font-size: 1.5rem;
+    }
+    #slide9 h2 {
+        font-size: 1rem;
+    }
+    #slide9 h3 {
+        font-size: 0.9rem;
+    }
+    #slide9 p {
+        font-size: 0.8rem;
+    }
     /* Slide 4 specific adjustments for mobile */
     #slide4 .couple-wrapper {
         gap: 10px;
@@ -1272,22 +1280,27 @@ p {
         display: flex;
         flex-direction: column;
         gap: 15px;
+        width: 100%;
+        max-width: 100%;
+        align-items: center;
+        justify-content: center;
     }
     #slide3 .text-section {
-        order: -1;
         width: 100%;
+        text-align: center;
+        order: -1;
     }
     #slide3 .couple-card {
-        flex: 1;
-        min-width: 45%;
+        max-width: none;
         padding: 10px;
-        margin-bottom: 0;
+        width: auto;
+        margin: 0 auto;
     }
     #slide3 .couple-card:nth-child(2) {
-        margin-right: 5px;
+        margin: 0 auto;
     }
     #slide3 .couple-card:nth-child(3) {
-        margin-left: 5px;
+        margin: 0 auto;
     }
     #slide3 .couple-card:nth-child(2) .photo-frame {
         margin: 0 auto 15px;
@@ -1502,34 +1515,13 @@ p {
         max-width: none;
     }
 
-    /* Slide 3 desktop layout - keep grid */
+    /* Slide 3 desktop layout - use grid for staggered effect */
     #slide3 .couple-wrapper {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        align-items: flex-start;
-    }
-    #slide3 .text-section {
-        width: 100%;
-        order: -1;
+        display: grid;
+        gap: 20px;
     }
     #slide3 .couple-card {
-        flex: 1;
-        min-width: 40%;
-        max-width: calc(50% - 5px);
-        padding: 8px;
-    }
-    #slide3 .text-section {
-        grid-area: text;
-        text-align: center;
-    }
-    #slide3 .couple-card:nth-child(2) {
-        grid-area: left;
-    }
-    #slide3 .couple-card:nth-child(3) {
-        grid-area: right;
+        padding: 15px;
     }
 
     .gallery-grid {
